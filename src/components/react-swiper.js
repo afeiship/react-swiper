@@ -8,7 +8,6 @@ export default class extends React.Component{
   static propTypes = {
     cssClass:React.PropTypes.string,
     items:React.PropTypes.array,
-    height:React.PropTypes.string,
     duration:React.PropTypes.number,
     dot:React.PropTypes.bool,
     itemTemplate:React.PropTypes.func,
@@ -143,13 +142,12 @@ export default class extends React.Component{
                 onTransitionEnd={this._onTransitionEnd.bind(this)}
                 style={{
                   width:`${this.props.items.length*100}%`,
-                  height:this.props.height,
                   transition:`transform ${this.state.duration}s`,
                   transform:`translateX(${this.state.translateX})`
                 }}>
                 {this.props.items.map(function(item,index){
                   return (
-                    <li key={index} style={{ width:`${100/this.props.items.length}%`,height:this.props.height}}>
+                    <li key={index} style={{ width:`${100/this.props.items.length}%`}}>
                       {this.props.itemTemplate(item,index)}
                     </li>
                   )
