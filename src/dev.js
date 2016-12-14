@@ -13,7 +13,7 @@ class App extends React.Component {
 
   render(){
     return (
-      <div class="hello-swiper">
+      <div className="hello-swiper">
         <ReactSwiper
           height='270px'
           itemTemplate={this._getItemTemplate.bind(this)}
