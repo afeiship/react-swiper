@@ -1444,6 +1444,10 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
 
+element-resize-event@^2.0.4:
+  version "2.0.7"
+  resolved "http://registry.npm.taobao.org/element-resize-event/download/element-resize-event-2.0.7.tgz#8b63953715967cd2241620245573e79e684e07b0"
+
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
@@ -3538,6 +3542,12 @@ react-deep-force-update@^2.0.1:
   version "2.0.1"
   resolved "http://registry.npm.taobao.org/react-deep-force-update/download/react-deep-force-update-2.0.1.tgz#4f7f6c12c3e7de42f345992a3c518236fa1ecad3"
 
+react-dimensions@^1.3.0:
+  version "1.3.0"
+  resolved "http://registry.npm.taobao.org/react-dimensions/download/react-dimensions-1.3.0.tgz#f5dec8e7b84644a605a900cae0f4a6654acf4e9f"
+  dependencies:
+    element-resize-event "^2.0.4"
+
 react-dom@^15.4.1:
   version "15.4.1"
   resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
@@ -3570,9 +3580,20 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react-swipeable@afeiship/react-swipeable:
+"react-swipe-views@github:afeiship/react-swipe-views":
   version "0.1.0"
-  resolved "https://codeload.github.com/afeiship/react-swipeable/tar.gz/880fba1553daca1af469c30e4cbce1cf42be8bbe"
+  resolved "https://codeload.github.com/afeiship/react-swipe-views/tar.gz/7b1512b83c00977d2c234bd12fe81a76101fa6f7"
+  dependencies:
+    classnames "^2.2.5"
+    react "^15.4.1"
+    react-dimensions "^1.3.0"
+    react-dom "^15.4.1"
+    react-measure "^1.4.4"
+    react-swipeable "github:afeiship/react-swipeable"
+
+react-swipeable@afeiship/react-swipeable, "react-swipeable@github:afeiship/react-swipeable":
+  version "0.1.0"
+  resolved "https://codeload.github.com/afeiship/react-swipeable/tar.gz/aecad1f9bd26a3b353ddd0859603f0eb979dacfb"
   dependencies:
     react "^15.4.1"
     react-dom "^15.4.1"

@@ -1,22 +1,24 @@
 import './style.scss';
 import classNames from 'classnames';
-import Swipeable from 'react-swipeable';
-import Measure from 'react-measure';
+import {ReactSwipeViewsInfinite} from 'react-swipe-views';
 
+let id=0;
 
 export default class extends React.Component{
   static propTypes = {
     cssClass:React.PropTypes.string,
-    items:React.PropTypes.array,
     duration:React.PropTypes.number,
     dot:React.PropTypes.bool,
+    activeIndex:React.PropTypes.number,
+    items:React.PropTypes.array,
     itemTemplate:React.PropTypes.func,
   };
 
   static defaultProps = {
-    items:[],
     duration:0.3,
     dot:true,
+    activeIndex:0,
+    items:[],
     itemTemplate:function(item,index){
       return (
         <img src={item.url} />
@@ -25,137 +27,49 @@ export default class extends React.Component{
   };
 
   constructor(props){
-    super(props);
-    this.fomratItems();
-    this.state={
-      index:1,
-      dimensions:{},
-      translateX:0,
-      duration:props.duration
-    }
-  }
-
-  componentWillMount(){
-    this.toIndex(1);
-  }
-
-  fomratItems(){
-    var items = this.props.items;
-    var first = items[0];
-    var last = items[items.length - 1];
-    items.push(first);
-    items.unshift(last);
-  }
-
-  _onSwipedLeft(ev){
-    var index = this.state.index + 1;
-    this.toIndex(index);
-    // ev.preventDefault();
-  }
-
-  _onSwipedRight(ev){
-    var index = this.state.index - 1;
-    this.toIndex(index);
-    // ev.preventDefault();
-  }
-
-  _onSwipingLeft(ev,deltaX){
-    var _translateX = this.state.index * this.state.dimensions.width;
-    this.setState({
-      duration:0,
-      translateX:`-${_translateX+deltaX}px`
-    });
-    // ev.preventDefault();
-  }
-
-  _onSwipingRight(ev,deltaX){
-    var _translateX = this.state.index * this.state.dimensions.width;
-    this.setState({
-      duration:0,
-      translateX:`-${_translateX-deltaX}px`
-    });
-    // ev.preventDefault();
-  }
-  toIndex(inIndex){
-    var index = this.getAbsIndex(inIndex);
-    this.setState({
-      index:index,
-      duration:this.props.duration,
-      translateX:`-${inIndex * 100/this.props.items.length}%`
-    });
-  }
-
-  _onTransitionEnd(){
-    this.jumpQuietly();
+  	super(props);
+  	this.state = {
+      duration:props.duration,
+      dot:props.dot,
+      activeIndex:props.activeIndex,
+      items:props.items,
+      itemTemplate:props.itemTemplate
+    };
+    this._length = props.items.length;
+    this._id = id++;
   }
 
   _dotClick(inIndex){
-    this.toIndex(inIndex);
+    var instance = ReactSwipeViewsInfinite.getInstance(`hdl-react-swiper-${this._id}`);
+    instance.play(inIndex);
+    console.log(instance);
   }
 
-  getAbsIndex(inIndex){
-    var index = inIndex;
-    var length = this.props.items.length;
-    var _length = length - 1;
-
-    if(index == 0){
-      index = _length - 1;
-    }
-
-    if(index == _length){
-      index = 1;
-    }
-    return index;
-  }
-
-
-  jumpQuietly(){
-    var index = this.getAbsIndex(this.state.index);
+  _onChange(state){
     this.setState({
-      index:index,
-      duration:0,
-      translateX:`-${index * 100/this.props.items.length}%`
-    });
+      activeIndex:state.activeIndex
+    })
   }
-
 
   render(){
     var dots = [];
-    var length = this.props.items.length - 2;
-    for (var i = 0; i < length; i++) {
-      dots.push(<span key={i} onClick={this._dotClick.bind(this,i+1)} data-active={this.state.index == (i+1)}></span>);
+    for (var i = 0; i < this._length; i++) {
+      dots.push(<span key={i} onClick={this._dotClick.bind(this,i)} data-active={this.state.activeIndex == i}></span>);
     }
 
     return (
-      <Measure onMeasure={(dimensions) => {
-          this.setState({dimensions})
-        }}>
-        <div className={classNames('react-swiper',this.props.cssClass)}>
-          {this.props.dot ? <div className="react-swiper-dots">{dots}</div>: null}
-          <Swipeable flickThreshold={0.2} delta={10} preventDefaultTouchmoveEvent className="react-swiper-wrapper"
-            onSwipingLeft={this._onSwipingLeft.bind(this)}
-            onSwipingRight={this._onSwipingRight.bind(this)}
-            onSwipedLeft={this._onSwipedLeft.bind(this)}
-            onSwipedRight={this._onSwipedRight.bind(this)}
-            >
-              <ul className="react-swiper-scroller"
-                onTransitionEnd={this._onTransitionEnd.bind(this)}
-                style={{
-                  width:`${this.props.items.length*100}%`,
-                  transition:`transform ${this.state.duration}s`,
-                  transform:`translateX(${this.state.translateX})`
-                }}>
-                {this.props.items.map(function(item,index){
-                  return (
-                    <li key={index} style={{ width:`${100/this.props.items.length}%`}}>
-                      {this.props.itemTemplate(item,index)}
-                    </li>
-                  )
-                }.bind(this))}
-              </ul>
-          </Swipeable>
-        </div>
-      </Measure>
+      <div className={classNames('react-swiper',this.props.cssClass)}>
+        {this.props.dot ? <div className="react-swiper-dots">{dots}</div>: null}
+        <ReactSwipeViewsInfinite
+            unit='width'
+            ref="swiper"
+            delegateHandle={`hdl-react-swiper-${this._id}`}
+            onChange={this._onChange.bind(this)}
+            duration={this.state.duration}
+            activeIndex={this.state.activeIndex}
+            itemTemplate={this.state.itemTemplate.bind(this)}
+            items={this.state.items} />
+      </div>
     );
   }
 }
