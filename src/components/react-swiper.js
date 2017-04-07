@@ -1,17 +1,16 @@
 import './style.scss';
+import {PureComponent,PropTypes} from 'react';
 import classNames from 'classnames';
 import {ReactSwipeViewsInfinite} from 'react-swipe-views';
 
-let id=0;
-
-export default class extends React.Component{
+export default class extends PureComponent{
   static propTypes = {
-    cssClass:React.PropTypes.string,
-    duration:React.PropTypes.number,
-    dot:React.PropTypes.bool,
-    activeIndex:React.PropTypes.number,
-    items:React.PropTypes.array,
-    itemTemplate:React.PropTypes.func,
+    className:PropTypes.string,
+    duration:PropTypes.number,
+    dot:PropTypes.bool,
+    activeIndex:PropTypes.number,
+    items:PropTypes.array,
+    itemTemplate:PropTypes.func,
   };
 
   static defaultProps = {
@@ -36,7 +35,6 @@ export default class extends React.Component{
       itemTemplate:props.itemTemplate
     };
     this._length = props.items.length;
-    this._id = id++;
   }
 
   _dotClick(inIndex){
@@ -58,12 +56,11 @@ export default class extends React.Component{
     }
 
     return (
-      <div className={classNames('react-swiper',this.props.cssClass)}>
+      <div className={classNames('react-swiper',this.props.className)}>
         {this.props.dot ? <div className="react-swiper-dots">{dots}</div>: null}
         <ReactSwipeViewsInfinite
             unit='width'
             ref="swiper"
-            delegateHandle={`hdl-react-swiper-${this._id}`}
             onChange={this._onChange.bind(this)}
             duration={this.state.duration}
             activeIndex={this.state.activeIndex}
