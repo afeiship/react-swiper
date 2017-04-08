@@ -3,5 +3,8 @@ ul,li{
   list-style: none;;
 }
 .hello-swiper{
-  img{width:100%;}
+  img{
+    width:100%;
+    display: block;
+  }
 }

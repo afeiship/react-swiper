@@ -12,53 +12,30 @@ class App extends React.Component {
   }
 
   render(){
+    const items1 = [
+      require('./assets/1_s.jpg'),
+      require('./assets/2_s.jpg'),
+      require('./assets/3_s.jpg'),
+      require('./assets/4_s.jpg'),
+    ];
+    const items2 = [
+      require('./assets/3_s.jpg'),
+      require('./assets/4_s.jpg'),
+      require('./assets/5_s.jpg'),
+    ];
     return (
       <div className="hello-swiper">
-        <ReactSwiper
-          itemTemplate={this._getItemTemplate.bind(this)}
-          items={[
-          {
-              url:require('./assets/1_s.jpg'),
-              href:'#1',
-              index:1
-          },
-          {
-              url:require('./assets/2_s.jpg'),
-              href:'#2',
-              index:2
-          },
-          {
-              url:require('./assets/3_s.jpg'),
-              href:'#3',
-              index:3
-          },
-          {
-              url:require('./assets/4_s.jpg'),
-              href:'#4',
-              index:4
-          }
-        ]}>
+        <ReactSwiper>
+          {items1.map((item,index)=>{
+            return (<img key={index} src={item} />)
+          })}
         </ReactSwiper>
         <ReactSwiper
           height='200px'
-          dot={false}
-          items={[
-          {
-              url:require('./assets/4_s.jpg'),
-              href:'#1',
-              index:1
-          },
-          {
-              url:require('./assets/5_s.jpg'),
-              href:'#2',
-              index:2
-          },
-          {
-              url:require('./assets/6_s.jpg'),
-              href:'#3',
-              index:3
-          }
-        ]}>
+          dot={false}>
+          {items2.map((item,index)=>{
+            return (<img key={index} src={item} />)
+          })}
         </ReactSwiper>
       </div>
     );

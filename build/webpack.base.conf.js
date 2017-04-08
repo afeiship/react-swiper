@@ -12,6 +12,7 @@ var useCssSourceMap = cssSourceMapDev || cssSourceMapProd;
 var externals = process.env.NODE_ENV === 'production' ? {
   react: 'react',
   classnames: 'classnames',
+  'react-swipe-views': 'react-swipe-views',
   'react-dom': 'react-dom'
 } : {};
 
