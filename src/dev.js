@@ -25,13 +25,15 @@ class App extends React.Component {
     ];
     return (
       <div className="hello-swiper">
+        <h1>Has dots</h1>
         <ReactSwiper>
           {items1.map((item,index)=>{
             return (<img key={index} src={item} />)
           })}
         </ReactSwiper>
+
+        <h1>No dots</h1>
         <ReactSwiper
-          height='200px'
           dot={false}>
           {items2.map((item,index)=>{
             return (<img key={index} src={item} />)
