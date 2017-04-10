@@ -32,8 +32,9 @@ export default class extends PureComponent{
   }
 
   _onChange = (state) =>{
+    const {swiper} = this.refs;
     this.setState({
-      activeIndex:state.activeIndex
+      activeIndex:swiper.state.activeIndex
     });
   };
 
@@ -45,8 +46,7 @@ export default class extends PureComponent{
           unit='width'
           ref="swiper"
           onChange={this._onChange}
-          duration={this.state.duration}
-          activeIndex={this.state.activeIndex}>
+          duration={this.state.duration}>
           {this.props.children}
         </ReactSwipeViewsInfinite>
       </div>
