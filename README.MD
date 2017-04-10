@@ -18,6 +18,7 @@ static propTypes = {
 
 ## usage:
 ```jsx
+
 class App extends React.Component {
   _getItemTemplate(item,index){
     return (
