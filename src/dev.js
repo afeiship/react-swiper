@@ -3,28 +3,35 @@ import ReactSwiper from './main';
 
 
 class App extends React.Component {
-  _getItemTemplate(item,index){
-    return (
-      <a href={item.href}>
-        <img src={item.url} data-index={index} />
-      </a>
-    )
-  }
-
-  render(){
-    const items1 = [
+  state = {
+    items1:[
       require('./assets/1_s.jpg'),
       require('./assets/2_s.jpg'),
       require('./assets/3_s.jpg'),
       require('./assets/4_s.jpg'),
-    ];
-    const items2 = [
+    ],
+    items2:[
       require('./assets/3_s.jpg'),
       require('./assets/4_s.jpg'),
       require('./assets/5_s.jpg'),
-    ];
+    ]
+  };
+
+  _click1 = (e) =>{
+      const {items1,items2} = this.state;
+      this.setState({
+        items1:items2,
+        items2:items1
+      });
+  };
+
+  render(){
+    const {items1,items2} = this.state;
+    console.log(items1);
     return (
       <div className="hello-swiper">
+        <button onClick={this._click1}>Switch Items</button>
+
         <h1>Has dots</h1>
         <ReactSwiper>
           {items1.map((item,index)=>{

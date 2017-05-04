@@ -19,19 +19,25 @@ export default class extends PureComponent{
 
   constructor(props){
   	super(props);
-  	this.state = { ...props };
-    this._length = props.children.length;
+  	this.state = { activeIndex:props.activeIndex };
+    this._dotLength = props.children.length;
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextProps.children !== this.props.children) {
+      this._dotLength = nextProps.children.length;
+      this.setState(nextProps);
+    }
   }
 
   generateDots(){
-    let dots = [], i;
-    for (i = 0; i < this._length; i++) {
-      dots.push(<span key={i} data-active={this.state.activeIndex == i}></span>);
-    }
-    return dots;
+    let arr = Array.from( Array(this._dotLength).keys() );
+    return arr.map(i=>{
+      return <span key={i} data-active={this.state.activeIndex == i} />
+    });
   }
 
-  _onChange = (state) =>{
+  _onChange = (state) => {
     const {swiper} = this.refs;
     this.setState({
       activeIndex:swiper.state.activeIndex
@@ -39,15 +45,16 @@ export default class extends PureComponent{
   };
 
   render(){
+    const {dot,children,duration} = this.props;
     return (
       <div className={classNames('react-swiper',this.props.className)}>
-        {this.props.dot ? <div className="react-swiper-dots">{this.generateDots()}</div>: null}
+        {dot && <div className="react-swiper-dots">{this.generateDots()}</div> }
         <ReactSwipeViewsInfinite
           unit='width'
           ref="swiper"
           onChange={this._onChange}
-          duration={this.state.duration}>
-          {this.props.children}
+          duration={duration}>
+          {children}
         </ReactSwipeViewsInfinite>
       </div>
     );
