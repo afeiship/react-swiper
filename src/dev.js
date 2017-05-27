@@ -1,6 +1,6 @@
 import './dev.scss';
-import ReactSwiper from './main';
 
+import ReactSwiper from './main';
 
 class App extends React.Component {
   state = {
@@ -34,6 +34,13 @@ class App extends React.Component {
 
         <h1>Has dots</h1>
         <ReactSwiper>
+          {items1.map((item,index)=>{
+            return (<img key={index} src={item} />)
+          })}
+        </ReactSwiper>
+
+        <h1>Has dots - followFinger:false</h1>
+        <ReactSwiper followFinger={false}>
           {items1.map((item,index)=>{
             return (<img key={index} src={item} />)
           })}
