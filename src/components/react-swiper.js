@@ -1,7 +1,7 @@
 import './style.scss';
 
-import {PropTypes, PureComponent} from 'react';
-
+import PropTypes from 'prop-types';
+import {PureComponent} from 'react';
 import {ReactSwipeViewsInfinite} from 'react-swipe-views';
 import classNames from 'classnames';
 
