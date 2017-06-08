@@ -13,6 +13,7 @@ var externals = process.env.NODE_ENV === 'production' ? {
   react: 'react',
   classnames: 'classnames',
   'react-swipe-views': 'react-swipe-views',
+  'prop-types': 'prop-types',
   'react-dom': 'react-dom'
 } : {};
 
