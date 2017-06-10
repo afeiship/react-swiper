@@ -55,7 +55,6 @@ export default class extends PureComponent{
 
   _onChange = (state) => {
     const {swiper} = this.refs;
-    console.log('on change....')
     this.setState({
       activeIndex:swiper.state.activeIndex
     });
