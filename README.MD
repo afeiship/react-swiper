@@ -63,6 +63,8 @@ class App extends React.Component {
 
 ```
 
+## todos:
++ [ ] optimize 'followFinger' option
 
 ## resource:
 + http://www.cnblogs.com/Kummy/p/4966937.html

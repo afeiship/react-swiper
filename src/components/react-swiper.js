@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {PureComponent} from 'react';
 import {ReactSwipeViewsInfinite} from 'react-swipe-views';
 import classNames from 'classnames';
+import objectAssign from 'object-assign';
 
 export default class extends PureComponent{
   static propTypes = {
@@ -23,15 +24,26 @@ export default class extends PureComponent{
 
   constructor(props){
   	super(props);
-  	this.state = { activeIndex:props.activeIndex };
+  	this.state = {
+      activeIndex:props.activeIndex,
+      children:props.children,
+    };
     this._dotLength = props.children.length;
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.children !== this.props.children) {
-      this._dotLength = nextProps.children.length;
-      this.setState(nextProps);
+  componentWillReceiveProps(nextProps, nextState) {
+    const {children,activeIndex} = nextProps;
+    if (!this.equalChildren(nextProps)) {
+      this._dotLength = children.length;
+      this.setState({ children, activeIndex });
     }
+  }
+
+  equalChildren(nextProps){
+    const newKeys = nextProps.children.map( child => child.key);
+    let oldKeys = this.props.children.map( child => child.key);
+    oldKeys = newKeys.length!==oldKeys.length ? oldKeys.slice(1,-1) : oldKeys;
+    return oldKeys.join('__JOIN__') === newKeys.join('__JOIN__');
   }
 
   generateDots(){
@@ -43,6 +55,7 @@ export default class extends PureComponent{
 
   _onChange = (state) => {
     const {swiper} = this.refs;
+    console.log('on change....')
     this.setState({
       activeIndex:swiper.state.activeIndex
     });
@@ -59,7 +72,7 @@ export default class extends PureComponent{
           ref="swiper"
           onChange={this._onChange}
           duration={duration}>
-          {children}
+          {this.state.children}
         </ReactSwipeViewsInfinite>
       </div>
     );

@@ -21,13 +21,17 @@ class App extends React.Component {
       const {items1,items2} = this.state;
       this.setState({
         items1:items2,
-        items2:items1
+        // items2:items1
       });
   };
 
+  constructor(props){
+    super(props);
+    window.demo = this;
+  }
+
   render(){
     const {items1,items2} = this.state;
-    console.log(items1);
     return (
       <div className="hello-swiper">
         <button onClick={this._click1}>Switch Items</button>
@@ -40,19 +44,19 @@ class App extends React.Component {
         </ReactSwiper>
 
         <h1>Has dots - followFinger:false</h1>
-        <ReactSwiper followFinger={false}>
+        { false && <ReactSwiper followFinger={false}>
           {items1.map((item,index)=>{
             return (<img key={index} src={item} />)
           })}
-        </ReactSwiper>
+        </ReactSwiper>}
 
         <h1>No dots</h1>
-        <ReactSwiper
+        { false && <ReactSwiper
           dot={false}>
           {items2.map((item,index)=>{
             return (<img key={index} src={item} />)
           })}
-        </ReactSwiper>
+        </ReactSwiper>}
       </div>
     );
   }
