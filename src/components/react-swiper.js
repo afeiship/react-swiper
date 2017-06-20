@@ -47,7 +47,8 @@ export default class extends PureComponent{
   }
 
   generateDots(){
-    let arr = Array.from( Array(this._dotLength).keys() );
+    let arr = new Array(this._dotLength).join().split(',');
+    arr = Object.keys(arr);
     return arr.map(i=>{
       return <span key={i} data-active={this.state.activeIndex == i} />
     });
