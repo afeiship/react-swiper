@@ -42,21 +42,6 @@ class App extends React.Component {
             return (<img key={index} src={item} />)
           })}
         </ReactSwiper>
-
-        <h1>Has dots - followFinger:false</h1>
-        { false && <ReactSwiper followFinger={false}>
-          {items1.map((item,index)=>{
-            return (<img key={index} src={item} />)
-          })}
-        </ReactSwiper>}
-
-        <h1>No dots</h1>
-        { false && <ReactSwiper
-          dot={false}>
-          {items2.map((item,index)=>{
-            return (<img key={index} src={item} />)
-          })}
-        </ReactSwiper>}
       </div>
     );
   }
