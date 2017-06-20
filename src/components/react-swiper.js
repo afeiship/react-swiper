@@ -9,14 +9,12 @@ import objectAssign from 'object-assign';
 export default class extends PureComponent{
   static propTypes = {
     className:PropTypes.string,
-    followFinger:PropTypes.bool,
     duration:PropTypes.number,
     dot:PropTypes.bool,
     activeIndex:PropTypes.number
   };
 
   static defaultProps = {
-    followFinger:true,
     duration:0.3,
     dot:true,
     activeIndex:0
@@ -67,7 +65,6 @@ export default class extends PureComponent{
       <div {...props} className={classNames('react-swiper',this.props.className)}>
         {dot && <div className="react-swiper-dots">{this.generateDots()}</div> }
         <ReactSwipeViewsInfinite
-          followFinger = {followFinger}
           unit='width'
           ref="swiper"
           onChange={this._onChange}
