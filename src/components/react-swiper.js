@@ -2,7 +2,7 @@ import './style.scss';
 
 import PropTypes from 'prop-types';
 import {PureComponent} from 'react';
-import {ReactSwipeViewsInfinite} from 'react-swipe-views';
+import { ReactSwipeViewsInfinite } from 'react-swipe-views';
 import classNames from 'classnames';
 import objectAssign from 'object-assign';
 
@@ -11,7 +11,8 @@ export default class extends PureComponent{
     className:PropTypes.string,
     duration:PropTypes.number,
     dot:PropTypes.bool,
-    activeIndex:PropTypes.number
+    activeIndex:PropTypes.number,
+    extra:PropTypes.number,
   };
 
   static defaultProps = {
@@ -60,10 +61,20 @@ export default class extends PureComponent{
   };
 
   render(){
-    const {dot,children,duration,activeIndex,followFinger,...props} = this.props;
+    const {
+      dot,
+      children,
+      duration,
+      activeIndex,
+      followFinger,
+      extra,
+      ...props
+    } = this.props;
+
     return (
       <div {...props} className={classNames('react-swiper',this.props.className)}>
         {dot && <div className="react-swiper-dots">{this.generateDots()}</div> }
+        { extra }
         <ReactSwipeViewsInfinite
           unit='width'
           ref="swiper"

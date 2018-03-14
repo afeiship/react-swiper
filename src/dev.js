@@ -37,7 +37,7 @@ class App extends React.Component {
         <button onClick={this._click1}>Switch Items</button>
 
         <h1>Has dots</h1>
-        <ReactSwiper>
+        <ReactSwiper extra={<b>I am extra view</b>}>
           {items1.map((item,index)=>{
             return (<img key={index} src={item} />)
           })}
